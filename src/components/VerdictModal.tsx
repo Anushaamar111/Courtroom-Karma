@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle, Trophy, ArrowRight, BarChart3 } from 'lucide-react';
 import { VERDICTS } from '../data/constants';
+import Tooltip from './Tooltip';
 
 interface VerdictModalProps {
   isOpen: boolean;
@@ -68,7 +69,9 @@ export default function VerdictModal({
             <div className="bg-blue-50 p-4 rounded-xl">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-semibold text-gray-900">Your Verdict</h3>
-                <span className="text-2xl font-bold text-blue-600">{userVerdict}</span>
+                <Tooltip content={userVerdictData.label}>
+                  <span className="text-2xl font-bold text-blue-600 cursor-help">{userVerdict}</span>
+                </Tooltip>
               </div>
               <p className="text-sm text-gray-600">{userVerdictData.label}</p>
             </div>
@@ -77,7 +80,9 @@ export default function VerdictModal({
             <div className="bg-orange-50 p-4 rounded-xl">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-semibold text-gray-900">Reddit's Verdict</h3>
-                <span className="text-2xl font-bold text-orange-600">{redditVerdict}</span>
+                <Tooltip content={redditVerdictData.label}>
+                  <span className="text-2xl font-bold text-orange-600 cursor-help">{redditVerdict}</span>
+                </Tooltip>
               </div>
               <p className="text-sm text-gray-600">{redditVerdictData.label}</p>
             </div>

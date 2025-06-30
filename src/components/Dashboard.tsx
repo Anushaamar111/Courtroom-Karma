@@ -10,9 +10,10 @@ interface DashboardProps {
   challenges: Challenge[];
   onBackToHome: () => void;
   onStartGame: () => void;
+  onShowLeaderboard: () => void;
 }
 
-export default function Dashboard({ userStats, challenges, onBackToHome, onStartGame }: DashboardProps) {
+export default function Dashboard({ userStats, challenges, onBackToHome, onStartGame, onShowLeaderboard }: DashboardProps) {
   const { user } = useAuth();
   const accuracy = userStats.totalJudgments > 0 
     ? Math.round((userStats.correctJudgments / userStats.totalJudgments) * 100)
@@ -61,12 +62,22 @@ export default function Dashboard({ userStats, challenges, onBackToHome, onStart
               </div>
             </div>
 
-            <button
-              onClick={onStartGame}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-            >
-              Continue Judging
-            </button>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={onShowLeaderboard}
+                className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center space-x-2"
+              >
+                <Trophy className="w-4 h-4" />
+                <span>Leaderboard</span>
+              </button>
+              
+              <button
+                onClick={onStartGame}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                Continue Judging
+              </button>
+            </div>
           </div>
         </div>
       </header>

@@ -7,10 +7,13 @@ import VerdictModal from './components/VerdictModal';
 import ProfileModal from './components/ProfileModal';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import Leaderboard from './components/Leaderboard';
+import Tooltip from './components/Tooltip';
 import { useGameState } from './hooks/useGameState';
 import { useAuth } from './hooks/useAuth';
+import { VERDICTS } from './data/constants';
 
-type AppView = 'landing' | 'game' | 'login' | 'dashboard';
+type AppView = 'landing' | 'game' | 'login' | 'dashboard' | 'leaderboard';
 
 function App() {
   const [currentView, setCurrentView] = useState<AppView>('landing');
@@ -28,6 +31,10 @@ function App() {
 
   const handleStartGame = () => {
     setCurrentView('game');
+  };
+
+  const handleShowLeaderboard = () => {
+    setCurrentView('leaderboard');
   };
 
   const handleSwipe = (verdict: 'YTA' | 'NTA' | 'ESH' | 'NAH') => {
@@ -107,6 +114,16 @@ function App() {
         challenges={gameState.challenges}
         onBackToHome={handleBackToHome}
         onStartGame={handleStartGame}
+        onShowLeaderboard={handleShowLeaderboard}
+      />
+    );
+  }
+
+  if (currentView === 'leaderboard') {
+    return (
+      <Leaderboard 
+        onBackToHome={handleBackToDashboard}
+        userStats={gameState.userStats}
       />
     );
   }
@@ -135,7 +152,7 @@ function App() {
               Case #{gameState.currentPostIndex + 1}
             </h2>
             <p className="text-gray-600">
-              Swipe left for YTA, right for NTA, or use the buttons below
+              Swipe left for <Tooltip content={VERDICTS.YTA.label}><span className="font-medium text-red-600 cursor-help underline decoration-dotted">YTA</span></Tooltip>, right for <Tooltip content={VERDICTS.NTA.label}><span className="font-medium text-green-600 cursor-help underline decoration-dotted">NTA</span></Tooltip>, or use the buttons below
             </p>
           </motion.div>
 

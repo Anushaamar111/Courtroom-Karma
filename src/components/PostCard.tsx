@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
 import { MessageCircle, Clock, User, ThumbsUp, ThumbsDown, Users, AlertTriangle } from 'lucide-react';
 import { AITAPost } from '../types';
+import { VERDICTS } from '../data/constants';
+import Tooltip from './Tooltip';
 
 interface PostCardProps {
   post: AITAPost;
@@ -145,40 +147,48 @@ export default function PostCard({ post, onSwipe, disabled = false }: PostCardPr
         {/* Action Buttons */}
         <div className="p-4 grid grid-cols-2 gap-2">
           <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => handleButtonClick('YTA')}
-              disabled={disabled}
-              className="flex items-center justify-center space-x-2 bg-red-500 hover:bg-red-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
-            >
-              <ThumbsDown className="w-4 h-4" />
-              <span className="text-sm">YTA</span>
-            </button>
-            <button
-              onClick={() => handleButtonClick('ESH')}
-              disabled={disabled}
-              className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
-            >
-              <AlertTriangle className="w-4 h-4" />
-              <span className="text-sm">ESH</span>
-            </button>
+            <Tooltip content={VERDICTS.YTA.label}>
+              <button
+                onClick={() => handleButtonClick('YTA')}
+                disabled={disabled}
+                className="flex items-center justify-center space-x-2 bg-red-500 hover:bg-red-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              >
+                <ThumbsDown className="w-4 h-4" />
+                <span className="text-sm">YTA</span>
+              </button>
+            </Tooltip>
+            <Tooltip content={VERDICTS.ESH.label}>
+              <button
+                onClick={() => handleButtonClick('ESH')}
+                disabled={disabled}
+                className="flex items-center justify-center space-x-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              >
+                <AlertTriangle className="w-4 h-4" />
+                <span className="text-sm">ESH</span>
+              </button>
+            </Tooltip>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => handleButtonClick('NTA')}
-              disabled={disabled}
-              className="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
-            >
-              <ThumbsUp className="w-4 h-4" />
-              <span className="text-sm">NTA</span>
-            </button>
-            <button
-              onClick={() => handleButtonClick('NAH')}
-              disabled={disabled}
-              className="flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
-            >
-              <Users className="w-4 h-4" />
-              <span className="text-sm">NAH</span>
-            </button>
+            <Tooltip content={VERDICTS.NTA.label}>
+              <button
+                onClick={() => handleButtonClick('NTA')}
+                disabled={disabled}
+                className="flex items-center justify-center space-x-2 bg-green-500 hover:bg-green-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              >
+                <ThumbsUp className="w-4 h-4" />
+                <span className="text-sm">NTA</span>
+              </button>
+            </Tooltip>
+            <Tooltip content={VERDICTS.NAH.label}>
+              <button
+                onClick={() => handleButtonClick('NAH')}
+                disabled={disabled}
+                className="flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+              >
+                <Users className="w-4 h-4" />
+                <span className="text-sm">NAH</span>
+              </button>
+            </Tooltip>
           </div>
         </div>
       </motion.div>
